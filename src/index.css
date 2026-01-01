@@ -7,7 +7,12 @@ body {
 }
 
 img {
-  user-drag: none;
   -webkit-user-drag: none;
-  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+div {
+  user-select: none;
+  -webkit-user-select: none;
 }

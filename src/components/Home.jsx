@@ -297,8 +297,10 @@ function HdBox({ scrollY, windowWidth }) {
       >
         <a 
           href={`${BASE_URL}hdv1.pdf`}
-          className={`block w-full h-full ${!isClickable ? 'pointer-events-none' : ''}`}
-          style={isClickable ? { cursor: `url('${BASE_URL}fish.png'), auto` } : undefined}
+          className="block w-full h-full"
+          style={isClickable ? { cursor: `url('${BASE_URL}fish.png'), auto` } :{
+          cursor: `url('${BASE_URL}fish2.png'), auto`}}
+          onClick={(e) => { if (!isClickable) e.preventDefault(); }}
         >
         <div 
           className="bg-[#bedbff] rounded-xl shadow-inner relative w-full h-full"
@@ -397,6 +399,26 @@ function About({ trigger, onAnimationEnd }) {
   )
 }
 
+function Planet({ windowWidth }) {
+  const [isDark, setIsDark] = useState(window.matchMedia('(prefers-color-scheme: dark)').matches);
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handler = (e) => setIsDark(e.matches);
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
+
+  return (
+    <div className="absolute"
+    style={{
+      top: isDark ? windowWidth < 768 ? '7dvw' : '-3dvw' : '-20dvw',
+      right: isDark ? windowWidth < 768 ? '2dvw' : '-4dvw' : '-20dvw' }}>
+      <img src={`${BASE_URL}${isDark ? 'moon.svg' : 'sun.svg'}`} alt="planet"
+      className={isDark ? "w-[20dvw]" :
+      windowWidth < 768 ? "w-[50dvw]" : "w-[35dvw]"} />
+    </div>
+  )
+}
 
 export default function Home() {
 
@@ -447,6 +469,7 @@ export default function Home() {
               style={{ animation: "upDown 1.5s ease-in-out infinite" }}
             /> */}
           </div>
+            <Planet windowWidth={windowWidth}/>
             <Mountain windowWidth={windowWidth} setAbout={setAbout} bounce={about}/>
             <About trigger={about} onAnimationEnd={() => setAbout(false)}/>
             <Article windowWidth={windowWidth}/>
