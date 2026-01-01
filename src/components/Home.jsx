@@ -4,6 +4,8 @@ import { motion, useScroll, useTransform } from "motion/react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAnglesDown } from '@fortawesome/free-solid-svg-icons';
 
+const BASE_URL = import.meta.env.BASE_URL;
+
 const transition = {
     duration: 4,
     repeat: Infinity,
@@ -25,13 +27,13 @@ function Mountain({ windowWidth, setAbout, bounce }) {
       <div
         className="
           relative
-          top-[50vw] md:top-[15vw] lg:top-[10vw] xl:top-[8vw]
-          right-[60vw]
-          w-[170vw]
+          top-[50dvw] md:top-[15dvw] lg:top-[10dvw] xl:top-[8dvw]
+          right-[60dvw]
+          w-[170dvw]
         ">
         <div>
           <img
-            src="/mountain.svg"
+            src={`${BASE_URL}mountain.svg`}
             alt="Mountain"
             className="
               w-full
@@ -58,7 +60,7 @@ function Flag({ setAbout, bounce }) {
             <style>{`
                 @keyframes bounce-click {
                     0%, 100% { transform: translateY(0) rotate(-35deg); }
-                    50% { transform: translateY(-3vw) rotate(-35deg); }
+                    50% { transform: translateY(-3dvw) rotate(-35deg); }
                 }
                 .animate-bounce-click {
                     animation: bounce-click 0.7s ease-in-out;
@@ -68,9 +70,9 @@ function Flag({ setAbout, bounce }) {
                 onClick={() => setAbout(true)}
                 className={`
                     absolute
-                    top-[50vw] md:top-[15vw] lg:top-[10vw] xl:top-[7vw]
-                    left-[1vw]
-                    w-[20vw]
+                    top-[50dvw] md:top-[15dvw] lg:top-[10dvw] xl:top-[7dvw]
+                    left-[1dvw]
+                    w-[20dvw]
                     z-[2]
                     rotate-[-35deg]
                     hover:rotate-[-25deg]
@@ -82,10 +84,10 @@ function Flag({ setAbout, bounce }) {
                     cursor-pointer
                     ${bounce ? 'animate-bounce-click' : ''}
                 `}
-                style={{ cursor: "url('/fish.png'), auto" }}
+                style={{ cursor: `url('${BASE_URL}fish.png'), auto` }}
             >
             <img
-                src="/flag.svg"
+                src={`${BASE_URL}flag.svg`}
                 alt="Flag"
                 className="w-full h-auto block"
                 draggable="false"
@@ -98,9 +100,9 @@ function Flag({ setAbout, bounce }) {
                     flex
                     items-center
                     justify-center
-                    text-[2.2vw] font-bold
-                    top-[-5vw]
-                    left-[3vw]
+                    text-[2.2dvw] font-bold
+                    top-[-5dvw]
+                    left-[3dvw]
                     text-black
                     select-none
                     rotate-[15deg]
@@ -129,7 +131,6 @@ function HunkyDory({ windowWidth }) {
 
     const threshold = windowWidth * 0.1;
     const speed = 0.8
-    console.log("Threshold", threshold)
 
     const translateY = useTransform(
         scrollY, 
@@ -147,10 +148,10 @@ function HunkyDory({ windowWidth }) {
     return (
       <motion.div
         ref={container}
-        style={{ y: translateY, rotate }}
+        style={{ y: translateY, rotate, willChange: 'transform' }}
         className="
-          absolute top-[-17%] left-[0%] w-[100%] h-auto z-[2]
-          pointer-events-none selection-none
+          absolute top-[-15%] sm:top-[-17%] left-[0%] w-[100%] h-auto z-[2]
+          pointer-events-none selection-none gpu-accelerate
         "
       >
         <svg
@@ -182,11 +183,11 @@ function HunkyDory({ windowWidth }) {
 
 function Article({ windowWidth }) {
   return (
-    <div className="relative top-[20vw]
-    md:top-[-15vw] lg:top-[-20vw] xl:top-[-25vw]
-    mb-[3vw] md:mb-[-15vw] lg:mb-[-20vw] xl:mb-[-25vw]
-    w-full h-[450vw] md:h-[320vw] bg-[#48A75C] [overflow-x:clip]">
-      <div className="h-[70vw] sm:h-[0]"></div>
+    <div className="relative top-[20dvw]
+    md:top-[-15dvw] lg:top-[-20dvw] xl:top-[-25dvw]
+    mb-[3dvw] md:mb-[-15dvw] lg:mb-[-20dvw] xl:mb-[-25dvw]
+    w-full h-[450dvw] md:h-[320dvw] bg-[#48A75C] [overflow-x:clip]">
+      <div className="h-[70dvw] sm:h-[0]"></div>
       <BoxHunkyDory windowWidth={windowWidth} />
     </div>
   )
@@ -199,10 +200,6 @@ function BoxHunkyDory({ windowWidth }) {
       target: container,
       offset: ["start end", "end start"]
   });
-
-  useEffect(() => {
-      scrollY.on('change', e => console.log(e))
-  }, [])
 
   const threshold = windowWidth;
   const speed = 1.5
@@ -217,12 +214,13 @@ function BoxHunkyDory({ windowWidth }) {
   return (
     <div
       ref={container}
-      className="sticky top-[30%] sm:top-[10%] md:top-[0] w-full h-[50vw]"
+      className="sticky top-[30%] sm:top-[10%] md:top-[0] w-full h-[50dvw]"
     >
       <motion.div
-        className="absolute top-[-20vw] md:top-[-11vw] w-[250%]
-        md:w-[200%] left-[-96%] md:left-[-67%] h-auto z-[3]
-        pointer-events-none selection-none"
+        className="absolute top-[-45dvw] md:top-[-11dvw] w-[400dvw]
+        md:w-[200%] left-[-185%] md:left-[-67%] h-auto z-[3]
+        pointer-events-none selection-none gpu-accelerate"
+        style={{ willChange: 'transform' }}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -270,13 +268,13 @@ function HdBox({ scrollY, windowWidth }) {
   const side_size = useTransform(
       scrollY, 
       [threshold, threshold + speed * windowWidth], 
-      [windowWidth > 700 ? "10vw": "20vw", windowWidth > 700 ? "20vw": "35vw"]
+      [windowWidth > 700 ? "10dvw": "20dvw", windowWidth > 700 ? "20dvw": "35dvw"]
   );
 
   const font_size = useTransform(
     scrollY, 
     [threshold, threshold + speed * 2 * windowWidth], 
-    ["5vw", "10vw"]
+    ["5dvw", "10dvw"]
 );
 
   const opacity_scroll = useTransform(
@@ -291,14 +289,16 @@ function HdBox({ scrollY, windowWidth }) {
         style={{ 
             height: side_size,
             width: side_size,
+            willChange: 'transform, width, height',
         }}
+        className="gpu-accelerate"
         whileHover={isClickable ? { y: -15 } : undefined}
         transition={{ duration: 0.2, ease: "easeOut" }}
       >
         <a 
-          href="/hdv1.pdf" 
+          href={`${BASE_URL}hdv1.pdf`}
           className={`block w-full h-full ${!isClickable ? 'pointer-events-none' : ''}`}
-          style={isClickable ? { cursor: "url('/fish.png'), auto" } : undefined}
+          style={isClickable ? { cursor: `url('${BASE_URL}fish.png'), auto` } : undefined}
         >
         <div 
           className="bg-[#bedbff] rounded-xl shadow-inner relative w-full h-full"
@@ -315,9 +315,9 @@ function HdBox({ scrollY, windowWidth }) {
               opacity: opacity_scroll,
             }}
           >
-            <img src="/vol1.png" alt="vol1 link"/>
+            <img src={`${BASE_URL}vol1.png`} alt="vol1 link"/>
           </motion.div>
-          <img src="/hdv1-thumbnail.png" alt="vol1 thumbnail"
+          <img src={`${BASE_URL}hdv1-thumbnail.png`} alt="vol1 thumbnail"
           className="w-full h-full rounded-xl object-cover"/>
         </div>
       </a>
@@ -329,21 +329,21 @@ function HdBox({ scrollY, windowWidth }) {
 
 function Footer() {
   return (
-    <div className="relative bg-[#51372C] w-full h-[17vw]
-    md:h-[15vw] lg:h-[10vw] z-[2]">
+    <div className="relative bg-[#51372C] w-full h-[17dvw]
+    md:h-[15dvw] lg:h-[10dvw] z-[2]">
       
-      <p className="text-[#72564a] absolute
-      bottom-[1vw] right-[1.5vw] text-[3vw] md:text-[2.5vw]
-      lg:text-[1.7vw] text-right leading-relaxed mb-[1vw] md:mb-[0]
+      <p className="text-[#9c7e71] absolute
+      bottom-[1dvw] right-[1.5dvw] text-[3dvw] md:text-[2.5dvw]
+      lg:text-[1.7dvw] text-right leading-relaxed mb-[1dvw] md:mb-[0]
       font-['Helvetica','Arial',sans-serif]">
-          <a style={{ cursor: "url('/fish.png'), auto" }}
+          <a style={{ cursor: `url('${BASE_URL}fish.png'), auto` }}
           className="underline"
-          href="mailto:hello@hunkydory.world">hello@hunkydory.world</a>
+          href="mailto:hello@hunkydory.online">hello@hunkydory.online</a>
         <br />
         Website by{' '}
         <a href="https://github.com/nshaff3r" className="underline"
         style={{ fontFamily: "Helvetica, Arial, sans-serif",
-          cursor: "url('/fish.png'), auto"
+          cursor: `url('${BASE_URL}fish.png'), auto`
          }}>
           Nolan Shaffer
         </a>
@@ -355,15 +355,15 @@ function Footer() {
 function Trees() {
   const treeCount = 1;
   return (
-    <div className="absolute bottom-[14vw] md:bottom-[13vw]
-    lg:bottom-[8vw] left-[5vw] lg:left-[10vw] w-full z-[5] flex 
+    <div className="absolute bottom-[14dvw] md:bottom-[13dvw]
+    lg:bottom-[8dvw] left-[5dvw] lg:left-[10dvw] w-full z-[5] flex 
     [overflow-x:clip] ">
       {[...Array(treeCount)].map((_, i) => (
         <img 
           key={i}
-          src="/tree.svg" 
+          src={`${BASE_URL}tree.svg`}
           alt="tree"
-          className="w-[12vw] z-[5] flex-shrink-0 ml-[0px]"
+          className="w-[12dvw] z-[5] flex-shrink-0 ml-[0px]"
           draggable={false}
           style={{ pointerEvents: "auto" }}
         />
@@ -384,13 +384,13 @@ function About({ trigger, onAnimationEnd }) {
         }
       `}</style>
       <img 
-        className="absolute top-[25vw] md:top-[5vw] w-full z-[10]"
+        className="absolute top-[25dvw] md:top-[5dvw] w-full z-[10]"
         style={{
           right: '-100%',
           animation: trigger ? 'slide-across 10s ease-in-out forwards' : 'none',
         }}
         onAnimationEnd={onAnimationEnd}
-        src="/about.svg" 
+        src={`${BASE_URL}about.svg`} 
         alt="about" 
       />
     </div>
@@ -417,8 +417,14 @@ export default function Home() {
     return (
         <div className="relative w-screen min-h-screen bg-[#bedbff]
         [overflow-x:clip]"
-        style={{ cursor: "url('/fish2.png'), auto" }}>
+        style={{ cursor: `url('${BASE_URL}fish2.png'), auto` }}>
           <style>{`
+            @font-face {
+              font-family: 'Bohemian Typewriter';
+              src: url('${BASE_URL}Bohemian-Typewriter.ttf') format('truetype');
+              font-weight: normal;
+              font-style: normal;
+            }
             @keyframes upDown {
               0%, 100% { transform: translateY(0); }
               50% { transform: translateY(-10px); }
@@ -427,14 +433,19 @@ export default function Home() {
               background: #48A75C;
               color: #bedbff;
             }
+            .gpu-accelerate {
+              transform: translateZ(0);
+              backface-visibility: hidden;
+              -webkit-backface-visibility: hidden;
+            }
           `}</style>
-          <div className="absolute left-0 top-[90vh] xl:top-[85vh]
+          <div className="absolute left-0 top-[90dvh] xl:top-[85dvh]
           w-screen flex justify-center z-[10]">
-            <FontAwesomeIcon
+            {/* <FontAwesomeIcon
               icon={faAnglesDown}
-              className="text-black text-[7vw]"
+              className="text-black text-[7dvw]"
               style={{ animation: "upDown 1.5s ease-in-out infinite" }}
-            />
+            /> */}
           </div>
             <Mountain windowWidth={windowWidth} setAbout={setAbout} bounce={about}/>
             <About trigger={about} onAnimationEnd={() => setAbout(false)}/>
