@@ -337,7 +337,8 @@ function Footer() {
       <p className="text-[#9c7e71] absolute
       bottom-[1dvw] right-[1.5dvw] text-[3dvw] md:text-[2.5dvw]
       lg:text-[1.7dvw] text-right leading-relaxed mb-[1dvw] md:mb-[0]
-      font-['Helvetica','Arial',sans-serif]">
+      font-['Helvetica','Arial',sans-serif]"
+      style={{ fontFamily: "'Times New Roman', Times, serif"}}>
           <a style={{ cursor: `url('${BASE_URL}fish.png'), auto` ,
           fontFamily: "'Times New Roman', Times, serif" }}
           className="underline"
