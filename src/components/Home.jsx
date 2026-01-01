@@ -338,13 +338,14 @@ function Footer() {
       bottom-[1dvw] right-[1.5dvw] text-[3dvw] md:text-[2.5dvw]
       lg:text-[1.7dvw] text-right leading-relaxed mb-[1dvw] md:mb-[0]
       font-['Helvetica','Arial',sans-serif]">
-          <a style={{ cursor: `url('${BASE_URL}fish.png'), auto` }}
+          <a style={{ cursor: `url('${BASE_URL}fish.png'), auto` ,
+          fontFamily: "'Times New Roman', Times, serif" }}
           className="underline"
           href="mailto:hello@hunkydory.online">hello@hunkydory.online</a>
         <br />
         Website by{' '}
         <a href="https://github.com/nshaff3r" className="underline"
-        style={{ fontFamily: "Helvetica, Arial, sans-serif",
+        style={{ fontFamily: "'Times New Roman', Times, serif",
           cursor: `url('${BASE_URL}fish.png'), auto`
          }}>
           Nolan Shaffer
@@ -386,7 +387,7 @@ function About({ trigger, onAnimationEnd }) {
         }
       `}</style>
       <img 
-        className="absolute top-[25dvw] md:top-[5dvw] w-full z-[10]"
+        className="absolute top-[25dvw] md:top-[28dvw] w-full z-[10]"
         style={{
           right: '-100%',
           animation: trigger ? 'slide-across 10s ease-in-out forwards' : 'none',
